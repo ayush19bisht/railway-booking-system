@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Trains | Railway Ticket Booking</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: url("{{ url_for('static', filename='train-bg.jpg') }}") no-repeat center center/cover;
+      height: 100vh;
+      margin: 0;
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      backdrop-filter: brightness(0.5);
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      width: 50%;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚉 Search Trains</h1>
+    <form method="POST" action="{{ url_for('search') }}">
+      <input type="text" name="source" placeholder="Source" required>
+      <input type="text" name="destination" placeholder="Destination" required>
+      <button type="submit">Search</button>
+    </form>
+
+    {% if trains %}
+    <h2>Available Trains</h2>
+    <table border="1" style="margin:auto; background-color:white; color:black;">
+      <tr><th>ID</th><th>Name</th><th>Source</th><th>Destination</th><th>Fare</th><th>Seats</th><th>Book</th></tr>
+      {% for t in trains %}
+      <tr>
+        <td>{{ t['id'] }}</td>
+        <td>{{ t['name'] }}</td>
+        <td>{{ t['source'] }}</td>
+        <td>{{ t['destination'] }}</td>
+        <td>₹{{ t['fare'] }}</td>
+        <td>{{ t['seats'] }}</td>
+        <td><a href="{{ url_for('book_ticket', train_id=t['id']) }}">Book</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+  </div>
+</body>
+</html>

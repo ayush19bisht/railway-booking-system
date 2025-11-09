@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: url("train-bg.jpg") no-repeat center center fixed;
+  background-size: cover;   /* always fill screen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  background: rgba(40, 40, 40, 0.55);  
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 20px;
+  padding: 40px 50px;
+  max-width: 600px;   /* wider on big screens */
+  width: 90%;         /* responsive scaling */
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  color: #fff;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  font-size: clamp(14px, 1.2vw, 18px);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #28a745;
+  color: white;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #218838;
+  transform: scale(1.05);
+}

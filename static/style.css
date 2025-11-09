@@ -1,0 +1,85 @@
+/* 🌈 Global Design - Railway Booking System */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: url("{{ url_for('static', filename='train-bg.jpg') }}") no-repeat center center/cover;
+  height: 100vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: brightness(0.6);
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.4);
+  width: 80%;
+  max-width: 800px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.6);
+}
+
+h1, h2 {
+  color: #00e676;
+  margin-bottom: 15px;
+}
+
+a, button {
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin: 5px;
+}
+
+a:hover, button:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+.logout {
+  background: #e53935;
+}
+
+.logout:hover {
+  background: #b71c1c;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  width: 90%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background: #007bff;
+  color: white;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard | Railway Ticket Booking</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: url("{{ url_for('static', filename='train-bg.jpg') }}") no-repeat center center/cover;
+      height: 100vh;
+      margin: 0;
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      backdrop-filter: brightness(0.5);
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      width: 50%;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      color: #00ff99;
+    }
+
+    a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: white;
+      background-color: #007bff;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    a:hover {
+      background-color: #0056b3;
+    }
+
+    .logout {
+      background-color: #dc3545;
+    }
+
+    .logout:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, {{ name }} 👋</h1>
+    <p>You're logged into the Railway Ticket Booking System.</p>
+    <a href="{{ url_for('search') }}">Search Trains</a>
+    <a href="{{ url_for('book_ticket') }}">Book Tickets</a>
+    <a href="{{ url_for('my_bookings') }}">View My Bookings</a>
+    <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+
+  </div>
+</body>
+
+</html>

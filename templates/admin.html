@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel | Railway Booking</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: url("{{ url_for('static', filename='train-bg.jpg') }}") no-repeat center center/cover;
+      min-height: 100vh;
+      color: white;
+      backdrop-filter: brightness(0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .panel {
+      background: rgba(0, 0, 0, 0.75);
+      border-radius: 16px;
+      padding: 25px;
+      width: 90%;
+      max-width: 1000px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #00ff99;
+      font-size: 2rem;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .add-btn {
+      background-color: #28a745;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .add-btn:hover {
+      background-color: #1f883d;
+      transform: scale(1.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background: rgba(0, 255, 153, 0.2);
+      color: #00ff99;
+      font-weight: bold;
+      border-bottom: 1px solid #00ff99;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    tr:hover {
+      background-color: rgba(0, 255, 153, 0.15);
+      transition: 0.3s;
+    }
+
+    .action-btns a {
+      display: inline-block;
+      margin: 2px 5px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .edit-btn {
+      background-color: #007bff;
+    }
+
+    .edit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+    }
+
+    .delete-btn:hover {
+      background-color: #b02a37;
+    }
+
+    .no-train {
+      text-align: center;
+      color: #ddd;
+      font-size: 1.1rem;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      table, th, td {
+        font-size: 14px;
+      }
+
+      .add-btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="panel">
+    <div class="top-bar">
+      <h1>🚆 Admin Panel</h1>
+      <a href="{{ url_for('add_train') }}" class="add-btn">➕ Add Train</a>
+    </div>
+
+    {% if trains %}
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Seats</th>
+        <th>Fare (₹)</th>
+        <th>Actions</th>
+      </tr>
+      {% for train in trains %}
+      <tr>
+        <td>{{ train.id }}</td>
+        <td>{{ train.name }}</td>
+        <td>{{ train.source }}</td>
+        <td>{{ train.destination }}</td>
+        <td>{{ train.seats }}</td>
+        <td>{{ train.fare }}</td>
+        <td class="action-btns">
+          <a href="{{ url_for('edit_train', train_id=train.id) }}" class="edit-btn">✏️ Edit</a>
+          <a href="{{ url_for('delete_train', train_id=train.id) }}" class="delete-btn">🗑️ Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+      <p class="no-train">No trains available. Click <b>Add Train</b> to create one.</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>

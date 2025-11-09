@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Bookings | Railway Ticket Booking</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: url("{{ url_for('static', filename='train-bg.jpg') }}") no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 30px;
+      border-radius: 15px;
+      width: 80%;
+      max-width: 900px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+      color: #00ff99;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .cancel-btn {
+      color: white;
+      background-color: #dc3545;
+      padding: 6px 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .cancel-btn:hover {
+      background-color: #b02a37;
+    }
+
+    .back-link {
+      color: #00ff99;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .flash-message {
+      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .flash-message.success {
+      background-color: #28a745;
+    }
+
+    .flash-message.error {
+      background-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-message {{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <h2>📋 My Bookings</h2>
+
+    {% if bookings %}
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Train</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Seats</th>
+        <th>Total Fare</th>
+        <th>Action</th>
+      </tr>
+      {% for booking in bookings %}
+      <tr>
+        <td>{{ booking['id'] }}</td>
+        <td>{{ booking['train_name'] }}</td>
+        <td>{{ booking['source'] }}</td>
+        <td>{{ booking['destination'] }}</td>
+        <td>{{ booking['num_seats'] }}</td>
+        <td>₹{{ booking['total_fare'] }}</td>
+        <td>
+          <a href="{{ url_for('cancel_booking', booking_id=booking['id']) }}"
+             class="cancel-btn"
+             onclick="return confirm('Cancel this booking?');">Cancel</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+      <p>No bookings found.</p>
+    {% endif %}
+
+    <p><a href="{{ url_for('dashboard') }}" class="back-link">⬅ Back to Dashboard</a></p>
+  </div>
+</body>
+</html>

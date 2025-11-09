@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Train | Admin Panel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: url("{{ url_for('static', filename='train-bg.jpg') }}") no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      backdrop-filter: brightness(0.6);
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 40px;
+      border-radius: 16px;
+      width: 400px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      animation: fadeIn 0.7s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      color: #00ff99;
+      font-size: 1.8rem;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+      text-align: center;
+    }
+
+    input::placeholder {
+      color: #777;
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    a {
+      color: #00ff99;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 15px;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #00cc7a;
+      text-decoration: underline;
+    }
+
+    .flash {
+      background-color: #ff4444;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <h2>✏️ Edit Train Details</h2>
+
+    <form method="POST">
+      <input type="text" name="name" value="{{ train['name'] }}" placeholder="Train Name" required>
+      <input type="text" name="source" value="{{ train['source'] }}" placeholder="Source" required>
+      <input type="text" name="destination" value="{{ train['destination'] }}" placeholder="Destination" required>
+      <input type="number" name="seats" value="{{ train['seats'] }}" placeholder="Total Seats" required>
+      <input type="number" step="0.01" name="fare" value="{{ train['fare'] }}" placeholder="Fare (₹)" required>
+      <button type="submit">💾 Update Train</button>
+    </form>
+
+    <a href="{{ url_for('admin_panel') }}">⬅ Back to Admin Panel</a>
+  </div>
+
+</body>
+</html>
